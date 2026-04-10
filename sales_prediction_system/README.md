@@ -10,9 +10,9 @@ Built with **Django** (backend) + **scikit-learn** (ML) + **vanilla HTML/CSS** (
 
 | Name | Role |
 |------|------|
-| Susmita Biswas | ML Engineer |
-| Jotirmoy Mondal | Backend Developer |
-| Alinda Paul | Frontend Developer |
+| Susmita Biswas | ML Developer |
+| Jotirmoy Mondal | ML Developer & Full Stack Developer |
+| Alinda Paul | Data Analyst |
 | Suchi Nondi | Data Analyst |
 
 ---
