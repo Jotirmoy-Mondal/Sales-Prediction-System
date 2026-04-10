@@ -13,6 +13,8 @@ SECRET_KEY = 'django-insecure-sales-prediction-2024-change-in-production'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['Jotirmoy.pythonanywhere.com']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
