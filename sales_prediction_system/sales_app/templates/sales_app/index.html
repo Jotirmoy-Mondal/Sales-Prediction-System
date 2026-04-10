@@ -84,6 +84,28 @@
             margin-bottom: 24px;
         }
 
+        /* Budget name input */
+        input[type="text"] {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s, background 0.2s;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #667eea;
+            background: rgba(102,126,234,0.1);
+        }
+        input[type="text"]::placeholder { color: #4a5568; }
+
+        .budget-name-row {
+            margin-bottom: 20px;
+        }
+
         .form-group label {
             display: block;
             font-size: 0.82rem;
@@ -300,6 +322,18 @@
 
         <form method="POST">
             {% csrf_token %}
+
+            <!-- Budget Campaign Name -->
+            <div class="budget-name-row">
+                <div class="form-group">
+                    <label for="budget_name">📋 Advertising Campaign Name</label>
+                    <input type="text" id="budget_name" name="budget_name"
+                           placeholder="e.g. Diwali Sale Campaign 2024"
+                           value="{{ form_data.budget_name|default:'' }}" required>
+                </div>
+            </div>
+
+            <!-- Budget Inputs -->
             <div class="form-grid">
 
                 <div class="form-group">
@@ -309,7 +343,7 @@
                         <input type="number" id="tv" name="tv" placeholder="e.g. 230.1"
                                step="0.1" min="0" max="10000"
                                value="{{ form_data.tv|default:'' }}" required>
-                        <span class="unit">$K</span>
+                        <span class="unit">₹K</span>
                     </div>
                 </div>
 
@@ -320,7 +354,7 @@
                         <input type="number" id="radio" name="radio" placeholder="e.g. 37.8"
                                step="0.1" min="0" max="10000"
                                value="{{ form_data.radio|default:'' }}" required>
-                        <span class="unit">$K</span>
+                        <span class="unit">₹K</span>
                     </div>
                 </div>
 
@@ -331,7 +365,7 @@
                         <input type="number" id="newspaper" name="newspaper" placeholder="e.g. 69.2"
                                step="0.1" min="0" max="10000"
                                value="{{ form_data.newspaper|default:'' }}" required>
-                        <span class="unit">$K</span>
+                        <span class="unit">₹K</span>
                     </div>
                 </div>
 
@@ -343,6 +377,11 @@
     <!-- Prediction Result -->
     <div class="result-card {% if prediction %}has-result{% endif %}">
         {% if prediction %}
+            {% if form_data.budget_name %}
+            <p style="color:#a78bfa; font-size:0.82rem; font-weight:600; margin-bottom:4px; letter-spacing:0.4px;">
+                📋 {{ form_data.budget_name }}
+            </p>
+            {% endif %}
             <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:8px;">Predicted Sales</p>
             <div class="prediction-value">{{ prediction }}</div>
             <div class="prediction-unit">Units (thousands)</div>
@@ -355,26 +394,26 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <div class="label">TV</div>
-                        <div class="val">${{ form_data.tv }}K</div>
+                        <div class="val">₹{{ form_data.tv }}K</div>
                     </div>
                     <div class="info-item">
                         <div class="label">Radio</div>
-                        <div class="val">${{ form_data.radio }}K</div>
+                        <div class="val">₹{{ form_data.radio }}K</div>
                     </div>
                     <div class="info-item">
                         <div class="label">Newspaper</div>
-                        <div class="val">${{ form_data.newspaper }}K</div>
+                        <div class="val">₹{{ form_data.newspaper }}K</div>
                     </div>
                     <div class="info-item">
                         <div class="label">Total Budget</div>
-                        <div class="val">${{ form_data.tv|add:form_data.radio|add:form_data.newspaper }}K</div>
+                        <div class="val">₹{{ form_data.tv|add:form_data.radio|add:form_data.newspaper }}K</div>
                     </div>
                 </div>
             </div>
         {% else %}
             <div class="result-placeholder">
                 <div class="icon">📊</div>
-                <p>Enter advertising budgets and click<br><strong>Predict Sales</strong> to get a forecast</p>
+                <p>Enter campaign name &amp; budgets,<br>then click <strong>Predict Sales</strong></p>
             </div>
         {% endif %}
     </div>
